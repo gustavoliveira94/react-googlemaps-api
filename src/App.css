@@ -1,0 +1,62 @@
+.main {
+  display: flex;
+  width: 100%;
+  height: 100vh;
+  background-color: #000000;
+}
+
+.locations {
+  min-width: 365px;
+  height: 100vh;
+  z-index: 1;
+  background-color: #f3f3f3;
+  box-shadow: 2px 2px 2px 2px #00000044;
+  overflow: auto;
+}
+
+.locations::-webkit-scrollbar-track {
+  background-color: #F4F4F4;
+}
+
+.locations::-webkit-scrollbar {
+  width: 6px;
+  background: #F4F4F4;
+}
+
+.locations::-webkit-scrollbar-thumb {
+  background: #dad7d7;
+}
+
+.locations h1 {
+  text-align: center;
+  margin: 10px 0 10px 0;
+  font-size: 24px;
+}
+
+.locations ul {
+  width: 100%;
+}
+
+.locations li {
+  border-bottom: 1px solid #00000044;
+  padding: 10px;
+}
+
+.locations li:hover {
+  transition: 1s all;
+  background-color: #0000002a;
+}
+
+.map {
+  width: 100%;
+  height: 100vh;
+}
+
+.filter {
+  width: 94%;
+  height: 40px;
+  background-color: #ffffff;
+  border: 1px solid #00000044;
+  margin-bottom: 10px;
+  padding: 0 10px 0 10px;
+}
