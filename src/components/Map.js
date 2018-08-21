@@ -1,5 +1,5 @@
 /* eslint-disable no-undef */
-import React, { Component } from 'react'
+import React from 'react'
 import { compose, withProps, withStateHandlers } from 'recompose'
 import { GoogleMap, withGoogleMap, withScriptjs, Marker, InfoWindow } from 'react-google-maps'
 
@@ -30,7 +30,7 @@ const Map = compose(
   withGoogleMap
 )(props =>
   <GoogleMap
-    defaultZoom={18}
+    defaultZoom={17}
     defaultCenter={props.center}
   >
     {
