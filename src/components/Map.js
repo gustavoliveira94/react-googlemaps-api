@@ -1,8 +1,7 @@
 /* eslint-disable no-undef */
-import React from 'react'
-import MyMarker from './components/MyMarker'
-import { compose, withProps } from 'recompose'
-import { GoogleMap, withGoogleMap, withScriptjs } from 'react-google-maps'
+import React, { Component } from 'react'
+import { compose, withProps, withStateHandlers } from 'recompose'
+import { GoogleMap, withGoogleMap, withScriptjs, Marker, InfoWindow } from 'react-google-maps'
 
 const Map = compose(
   withProps({
@@ -15,31 +14,39 @@ const Map = compose(
       lng: -43.4647076
     },
   }),
+  withStateHandlers(() => ({
+    isOpen: false,
+    showInfo: 0
+  }), {
+      onToggleOpen: ({ isOpen }) => () => ({
+        isOpen: !isOpen,
+      }),
+      showInfo: ({ showInfo, isOpen }) => (index) => ({
+        isOpen: !isOpen,
+        showInfoIndex: index
+      }),
+    }),
   withScriptjs,
   withGoogleMap
 )(props =>
   <GoogleMap
-    ref={props.onMapMounted}
     defaultZoom={18}
     defaultCenter={props.center}
-    onBoundsChanged={props.onBoundsChanged}
   >
     {
       props.markers.map((marker, index) => {
-        return <MyMarker key={index} 
-        position={{ lat: marker.location.lat, lng: marker.location.lng }}
-        />
-          {/* {
-            props.isOpen && <InfoWindow onCloseClick={props.onToggleOpen}>
-              <div>
-                <ul>
-                  <li>Nome do Local: {marker.name}</li>
-                  <li>Endereço: {marker.location.formattedAddress[0]}, <br /> {marker.location.formattedAddress[1]}, <br /> {marker.location.formattedAddress[2]}</li>
-                </ul>
-              </div>
+        return <Marker icon={'https://image.ibb.co/kpxg5z/placeholder_2.png'} key={index}
+          position={{ lat: marker.location.lat, lng: marker.location.lng }}
+          onClick={() => { props.showInfo(index) }}>
+          {
+            (props.showInfoIndex === index) && <InfoWindow onCloseClick={props.onToggleOpen}>
+              <ul>
+                <li>Nome do Local: {marker.name}</li>
+                <li>Endereço: {marker.location.formattedAddress[0]}, <br /> {marker.location.formattedAddress[1]}, <br /> {marker.location.formattedAddress[2]}</li>
+              </ul>
             </InfoWindow>
-          } */}
-        {/* </MyMarker> */}
+          }
+        </Marker>
       })
     }
   </GoogleMap>
