@@ -1,6 +1,6 @@
 # U-LOCATIONS
 
-The project made to show places in neighborhood - Bangu, Rio de Janeiro = Brazil
+The project made to show places in neighborhood - Bangu, Rio de Janeiro - Brazil
 
 ## Getting Started
 
