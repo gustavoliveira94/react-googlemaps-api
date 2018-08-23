@@ -1,5 +1,6 @@
 {
-  "homepage": "https://gustavoliveira94.github.io/react-googlemaps-api/",
+  "homepage": "https://gustavoliveira94.github.io/react-googlemaps-api",
+  "name": "U-Locations",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -19,5 +20,7 @@
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "gh-pages": "^1.2.0"
+  }
 }

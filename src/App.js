@@ -1,7 +1,7 @@
 /* eslint-disable no-undef */
 import React, { Component } from 'react'
-import { DebounceInput } from 'react-debounce-input'
 import Map from './components/Map'
+import ListPlaces from './components/ListPlaces'
 import './App.css'
 
 class App extends Component {
@@ -15,10 +15,7 @@ class App extends Component {
         iconSelected: 'https://image.ibb.co/bC9PXe/placeholder_4.png',
         isOpen: false,
         indexInfo: 0,
-        onToggleOpen: ({ isOpen }) => (index, isOpen) => ({
-          indexInfo: index,
-          isOpen: !isOpen
-        })
+        onToggleOpen: ''
       }
     this.filterList = this.filterList.bind(this)
     this.viewMarkers = this.viewMarkers.bind(this)
@@ -40,7 +37,11 @@ class App extends Component {
       .then(res => res.json())
       .then(data => {
         this.setState({ markers: data.response.venues });
-      });
+      })
+      .catch(error => {
+        console.error(" Não foi possível carregar os locais.", error)
+        alert("Não foi possível carregar os locais")
+      })
   }
 
   // METHOD FILTER SEARCH
@@ -65,7 +66,11 @@ class App extends Component {
         .then(res => res.json())
         .then(data => {
           this.setState({ markers: data.response.venues });
-        });
+        })
+        .catch(error => {
+          console.error(" Não foi possível carregar os locais.", error)
+          alert("Não foi possível carregar os locais")
+        })
     }
   }
 
@@ -98,22 +103,11 @@ class App extends Component {
       <header className="main">
 
         {/* CONTAINER FILTER PLACES */}
-        <div className="locations">
-          <div className="logo"><h1>U-LOCATIONS</h1> <i onClick={this.viewMarkers} className="fas fa-2x fa-bars"></i></div>
-          <DebounceInput
-            className="filter"
-            minLength={1}
-            debounceTimeout={0}
-            placeholder="DIGITE UM LOCAL"
-            onChange={this.filterList} />
-          <ul className="hidden">
-            {
-              this.state.markers.map((marker, index) => {
-                return <li onClick={() => this.onToggleOpen(index, true)} key={index}>{marker.name}</li>
-              })
-            }
-          </ul>
-        </div>
+        <ListPlaces
+          onToggleOpen={this.onToggleOpen}
+          viewMarkers={this.viewMarkers}
+          markers={this.state.markers}
+          filterList={this.filterList} />
 
         {/* CONTAINER MAP */}
         <div className="map">

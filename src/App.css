@@ -15,6 +15,11 @@
   overflow: auto;
 }
 
+.locations a {
+  color: #ffffff;
+  text-decoration: none;
+}
+
 .locations::-webkit-scrollbar-track {
   background-color: #242f3e;
 }
@@ -45,6 +50,11 @@
 }
 
 .locations li:hover {
+  transition: 1s all;
+  background-color: #0000002a;
+}
+
+.locations li:focus {
   transition: 1s all;
   background-color: #0000002a;
 }
