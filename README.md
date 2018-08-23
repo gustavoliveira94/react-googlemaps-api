@@ -17,6 +17,12 @@ npm start
 localhost:3000
 ```
 
+## Testing Service Worker
+
+```
+npm run build
+```
+
 ## Built With
 
 * [REACT](http://www.dropwizard.io/1.0.2/docs/) - The web framework used
