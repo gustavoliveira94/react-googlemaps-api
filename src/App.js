@@ -10,12 +10,21 @@ class App extends Component {
     super()
     this.state =
       {
-        markers: []
+        markers: [],
+        iconDefault: 'https://image.ibb.co/kpxg5z/placeholder_2.png',
+        iconSelected: 'https://image.ibb.co/bC9PXe/placeholder_4.png',
+        isOpen: false,
+        indexInfo: 0,
+        onToggleOpen: ({ isOpen }) => (index, isOpen) => ({
+          indexInfo: index,
+          isOpen: !isOpen
+        })
       }
     this.filterList = this.filterList.bind(this)
     this.viewMarkers = this.viewMarkers.bind(this)
   }
 
+  // CALL API FOURSQUARE
   componentDidMount() {
     const url = [
       `https://api.foursquare.com/v2/venues/search?`,
@@ -34,6 +43,7 @@ class App extends Component {
       });
   }
 
+  // METHOD FILTER SEARCH
   filterList(event) {
     this.setState({
       markers: this.state.markers.filter(marker => {
@@ -59,6 +69,7 @@ class App extends Component {
     }
   }
 
+  // METHOD TO RESPONSIVE PLACES FILTERS
   viewMarkers() {
     const list = document.querySelector('.locations ul');
     if (list.classList.contains('hidden')) {
@@ -68,13 +79,25 @@ class App extends Component {
     } else {
       window.addEventListener("click", () => {
         list.classList.add('hidden')
+      }
+      )
     }
-  )}
-}
+  }
+
+  // METHOD OPEN INFOWINDOW
+  onToggleOpen = (index, isOpen) => {
+    this.setState({
+      indexInfo: index,
+      isOpen: isOpen
+    });
+  }
 
   render() {
+
     return (
       <header className="main">
+
+        {/* CONTAINER FILTER PLACES */}
         <div className="locations">
           <div className="logo"><h1>U-LOCATIONS</h1> <i onClick={this.viewMarkers} className="fas fa-2x fa-bars"></i></div>
           <DebounceInput
@@ -86,14 +109,23 @@ class App extends Component {
           <ul className="hidden">
             {
               this.state.markers.map((marker, index) => {
-                return <li key={index}>{marker.name}</li>
+                return <li onClick={() => this.onToggleOpen(index, true)} key={index}>{marker.name}</li>
               })
             }
           </ul>
         </div>
+
+        {/* CONTAINER MAP */}
         <div className="map">
-          <Map markers={this.state.markers} />
+          <Map
+            markers={this.state.markers}
+            onToggleOpen={this.onToggleOpen}
+            indexInfo={this.state.indexInfo}
+            isOpen={this.state.isOpen}
+            iconDefault={this.state.iconDefault}
+            iconSelected={this.state.iconSelected} />
         </div>
+
       </header >
     );
   }

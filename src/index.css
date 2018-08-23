@@ -17,7 +17,10 @@
 
   .hidden {
     display: none !important;
-    transition: 1s;
+  }
+
+  .map {
+    height: calc(100vh - 105px) !important;
   }
 
   .logo i {
